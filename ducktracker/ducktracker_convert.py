@@ -51,7 +51,6 @@ def find_delta(before_date, before_time, after_date, after_time):
     before = datetime.strptime(before_date+"-"+before_time, fmt)
     after = datetime.strptime(after_date+"-"+after_time, fmt)
     delta = int((after - before).total_seconds() / 60)
-    print(delta)
     return delta
 
 
