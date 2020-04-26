@@ -41,17 +41,27 @@ def find_home(data, user):
         latlons.append((lat, lon))
 
     # Find most frequent location
-    home_latlon = mode(latlons)
+    try:
+        home_latlon = mode(latlons)
+    except:
+        home_latlon = latlons[0]
 
     return str(home_latlon[0]), str(home_latlon[1])
 
 
-def find_delta(before_date, before_time, after_date, after_time):
+def tsi_check(before_date, before_time, after_date, after_time):
     fmt = "%m/%d/%Y-%H:%M:%S"
     before = datetime.strptime(before_date+"-"+before_time, fmt)
     after = datetime.strptime(after_date+"-"+after_time, fmt)
-    delta = int((after - before).total_seconds() / 60)
-    return delta
+    delta = (after - before).total_seconds()
+    if delta > TSI*2*60:
+        ret = 1
+    elif delta < -TSI*2*60:
+        ret = -1
+    else:
+        ret = 0
+
+    return ret
 
 
 def is_same_place(latlon_1, latlon_2):
@@ -114,7 +124,13 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
             # Current lat/lon matches previous, add the TSI to location time
             if is_same_place((lat, lon), prev_latlon):
-                time_at_loc += find_delta(prev_date, prev_time, date, time)
+                check = tsi_check(prev_date, prev_time, date, time)
+                if check == 0:
+                    time_at_loc += TSI
+                elif check > 0:
+                    time_at_loc = 0
+
+
             # User is in a new location -- reset location time
             else:
                 time_at_loc = 0
