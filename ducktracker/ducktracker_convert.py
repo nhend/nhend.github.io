@@ -46,10 +46,13 @@ def find_home(data, user):
     return str(home_latlon[0]), str(home_latlon[1])
 
 
-def find_delta(before, after):
-    fmt = "%H:%M:%S"
-    delta = datetime.strptime(after, fmt) - datetime.strptime(before, fmt)
-    return delta.total_seconds()
+def find_delta(before_date, before_time, after_date, after_time):
+    fmt = "%m/%d/%Y-%H:%M:%S"
+    before = datetime.strptime(before_date+"-"+before_time, fmt)
+    after = datetime.strptime(after_date+"-"+after_time, fmt)
+    delta = int((after - before).total_seconds() / 60)
+    print(delta)
+    return delta
 
 
 def is_same_place(latlon_1, latlon_2):
@@ -88,6 +91,7 @@ def write_out(data, out_filename="ducktracker_output.txt"):
     for user in data:
         time_at_loc = 0
         prev_time = ""
+        prev_date = ""
         prev_latlon = (-1, -1)
         home_latlon = find_home(data, user)
 
@@ -111,11 +115,12 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
             # Current lat/lon matches previous, add the TSI to location time
             if is_same_place((lat, lon), prev_latlon):
-                time_at_loc += find_delta(prev_time, time)
+                time_at_loc += find_delta(prev_date, prev_time, date, time)
             # User is in a new location -- reset location time
             else:
                 time_at_loc = 0
                 prev_time = time
+                prev_date = date
                 prev_latlon = (lat, lon)
 
             # If home location, anonymize
@@ -158,14 +163,14 @@ def main():
     root.resizable(False, False)
 
     msg = "This tool is provided to download Ducktracker's database " \
-          "\n(stored in JSON format) as a human-readable, tab-delimited text file.\n"
+          "\n(stored in JSON format) as a human-readable, tab-delimited text file."
 
     question = tk.Label(root, text=msg)
     question.grid(row=0, column=1, pady=(15, 10), padx=15, columnspan=3)
 
     button_pull = tk.Button(root, text="Get real time data",
                             command=lambda: [pull_firebase(), root.destroy()])
-    button_pull.grid(row=1, column=3, pady=10)
+    button_pull.grid(row=1, column=2, pady=10)
 
     root.mainloop()
 
