@@ -118,9 +118,10 @@ def write_out(data, out_filename="ducktracker_output.txt"):
             # User is in a new location -- reset location time
             else:
                 time_at_loc = 0
-                prev_time = time
-                prev_date = date
                 prev_latlon = (lat, lon)
+
+            prev_time = time
+            prev_date = date
 
             # If home location, anonymize
             if is_same_place((lat, lon), home_latlon):
