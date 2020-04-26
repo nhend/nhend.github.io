@@ -5,7 +5,7 @@ Converts a given .json file to a tab delineated text file as specified by
 system requirement 6
 """
 
-import datetime
+from datetime import datetime
 from urllib import request
 import tkinter as tk
 from tkinter import filedialog
@@ -47,6 +47,9 @@ def find_home(data, user):
 
 
 def find_delta(before, after):
+    fmt = "%H:%M:%S"
+    delta = datetime.strptime(after, fmt) - datetime.strptime(before, fmt)
+    return delta.total_seconds()
 
 
 def is_same_place(latlon_1, latlon_2):
@@ -129,7 +132,7 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
 def pick_output():
     """ Pick output file by opening dialog window. Calls write_out() """
-    now = datetime.datetime.now()
+    now = datetime.now()
     fn = "ducktracker"
     fn += now.strftime(" %Y-%m-%d.txt")
     filename = filedialog.asksaveasfilename(filetypes=[("Text File", "*.txt")],
@@ -154,15 +157,15 @@ def main():
     root.title("Ducktracker Data Tool")
     root.resizable(False, False)
 
-    msg = "This tool is provided to convert Ducktracker's database " \
-          "\n(stored in JSON format) to a human-readable, tab-delimited text file.\n"
+    msg = "This tool is provided to download Ducktracker's database " \
+          "\n(stored in JSON format) as a human-readable, tab-delimited text file.\n"
 
     question = tk.Label(root, text=msg)
     question.grid(row=0, column=1, pady=(15, 10), padx=15, columnspan=3)
 
     button_pull = tk.Button(root, text="Get real time data",
                             command=lambda: [pull_firebase(), root.destroy()])
-    button_pull.grid(row=1, column=3, pady=10, padx=(5, 15))
+    button_pull.grid(row=1, column=3, pady=10)
 
     root.mainloop()
 
