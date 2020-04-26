@@ -13,15 +13,17 @@ import json
 from statistics import mode
 from random import randint
 
-# Global temporal sampling interval -- how often measurements were taken
+# Global temporal sampling interval in minutes
 TSI = 5
 
-def find_home(data, user):
+
+def find_home(data, user) -> (str, str):
     """
-    Returns a lat/lon tuple of the user's most frequent location, likely
-    their home.
+    Returns a lat/lon tuple of the user's most frequent location, assumed to
+    be their home.
 
     :param data: JSON object
+    :param user: JSON object
     :return: Tuple containing latitude/longitude coordinates
     """
     latlons = []
@@ -43,28 +45,36 @@ def find_home(data, user):
     # Find most frequent location
     try:
         home_latlon = mode(latlons)
+    # If there are multiple with the same frequency, the user has not been using
+    # the app long enough to make an accurate determination so we guess the 0th
     except:
         home_latlon = latlons[0]
 
     return str(home_latlon[0]), str(home_latlon[1])
 
 
-def tsi_check(before_date, before_time, after_date, after_time):
+def within_tsi(before_date, before_time, after_date, after_time) -> bool:
+    """
+    Returns an a boolean representing the relationship between two datetime
+    measurements. If the elapsed time between the measurements is greater than
+    the margin of 2*TSI (in seconds), False is returned. If it is within the
+    margin, True is returned.
+
+    :param before_date: Date string in MM/DD/YYYY format
+    :param before_time: Time string in HH:MM:SS format
+    :param after_date: Date string in MM/DD/YYYY format
+    :param after_time: Time string in HH:MM:SS format
+    :return: Boolean
+    """
     fmt = "%m/%d/%Y-%H:%M:%S"
-    before = datetime.strptime(before_date+"-"+before_time, fmt)
-    after = datetime.strptime(after_date+"-"+after_time, fmt)
+    before = datetime.strptime(before_date + "-" + before_time, fmt)
+    after = datetime.strptime(after_date + "-" + after_time, fmt)
     delta = (after - before).total_seconds()
-    if delta > TSI*2*60:
-        ret = 1
-    elif delta < -TSI*2*60:
-        ret = -1
-    else:
-        ret = 0
 
-    return ret
+    return delta <= TSI * 60 * 2
 
 
-def is_same_place(latlon_1, latlon_2):
+def is_same_place(latlon_1, latlon_2) -> bool:
     """
     Given two coordinates, determines if they are practically the same location
     (within a margin).
@@ -83,7 +93,7 @@ def is_same_place(latlon_1, latlon_2):
     return same_lat and same_lon
 
 
-def write_out(data, out_filename="ducktracker_output.txt"):
+def write_out(data, out_filename="ducktracker_output.txt") -> None:
     """
     Opens and extracts contents of a json file by the given filename and
     writes contents out to a .txt file using tabs for delimiters. Also
@@ -102,7 +112,10 @@ def write_out(data, out_filename="ducktracker_output.txt"):
         prev_time = ""
         prev_date = ""
         prev_latlon = (-1, -1)
+
         home_latlon = find_home(data, user)
+        anon_home_lat = home_latlon[0][:-1] + str(randint(0, 9))
+        anon_home_lon = home_latlon[1][:-1] + str(randint(0, 9))
 
         # Iterate through all of user's location measurement entries
         for entry in data[user]:
@@ -124,13 +137,10 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
             # Current lat/lon matches previous, add the TSI to location time
             if is_same_place((lat, lon), prev_latlon):
-                check = tsi_check(prev_date, prev_time, date, time)
-                if check == 0:
+                if within_tsi(prev_date, prev_time, date, time):
                     time_at_loc += TSI
-                elif check > 0:
+                else:
                     time_at_loc = 0
-
-
             # User is in a new location -- reset location time
             else:
                 time_at_loc = 0
@@ -141,8 +151,8 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
             # If home location, anonymize
             if is_same_place((lat, lon), home_latlon):
-                lat = lat[:-1] + str(randint(0, 9))
-                lon = lon[:-1] + str(randint(0, 9))
+                lat = anon_home_lat
+                lon = anon_home_lon
 
             # Tab delimiting
             s = "\t".join([user, date, time, lat, lon, str(time_at_loc)]) + '\n'
@@ -152,10 +162,10 @@ def write_out(data, out_filename="ducktracker_output.txt"):
 
 
 def pick_output():
-    """ Pick output file by opening dialog window. Calls write_out() """
+    """ Pick output file by opening dialog window. """
     now = datetime.now()
     fn = "ducktracker"
-    fn += now.strftime(" %Y-%m-%d.txt")
+    fn += now.strftime("_%Y-%m-%d.txt")
     filename = filedialog.asksaveasfilename(filetypes=[("Text File", "*.txt")],
                                             defaultextension=".txt",
                                             initialfile=fn)
