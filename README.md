@@ -1,2 +1,2 @@
 # nhend.github.io
-Welcome to my personal site. It's not much.
+Welcome to my personal site. Not much to it. 
