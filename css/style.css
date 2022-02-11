@@ -23,13 +23,13 @@ body {
 }
 
 body.dark {
-  background-color: #4C5C60;
+  background-color: #C7C7A6;
 }
 
 * {
   font-family: 'Jost', Object Sans, Helvetica, sans-serif;
   font-weight: 200;
-  color: #4C5C60;
+  color: #C7C7A6;
 }
 
 
@@ -183,7 +183,7 @@ section {
 }
 
 .grey {
-  background: #f4f4f4;
+  background: #4C5C60;
 }
 
 section.grey {
@@ -199,7 +199,7 @@ section.grey {
 }
 
 .footer {
-  background-color: #4C5C60;
+  background-color: #C7C7A6;
   margin-top: 0;
   padding-bottom: 32px;
 }
