@@ -23,13 +23,13 @@ body {
 }
 
 body.dark {
-  background-color: #C7C7A6;
+  background-color: #B1C7A5;
 }
 
 * {
   font-family: 'Jost', Object Sans, Helvetica, sans-serif;
   font-weight: 200;
-  color: #C7C7A6;
+  color: #B1C7A5;
 }
 
 
@@ -117,7 +117,7 @@ a:hover {
 }
 
 .type-white {
-  color: #cfd1cf;
+  color: #CAC4CE;
 }
 
 .underline {
@@ -183,7 +183,7 @@ section {
 }
 
 .grey {
-  background: #4C5C60;
+  background: #ACACAC;
 }
 
 section.grey {
@@ -199,7 +199,7 @@ section.grey {
 }
 
 .footer {
-  background-color: #C7C7A6;
+  background-color: #B1C7A5;
   margin-top: 0;
   padding-bottom: 32px;
 }
