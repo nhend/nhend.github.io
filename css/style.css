@@ -23,13 +23,13 @@ body {
 }
 
 body.dark {
-  background-color: #B1C7A5;
+  background-color: #4B6858;
 }
 
 * {
   font-family: 'Jost', Object Sans, Helvetica, sans-serif;
   font-weight: 200;
-  color: #B1C7A5;
+  color: #4B6858;
 }
 
 
@@ -108,7 +108,7 @@ a {
 }
 
 a:hover {
-  color: #bf9cd7;
+  color: #8E5572;
 }
 
 .heavy {
