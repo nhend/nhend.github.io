@@ -3,7 +3,6 @@
   --paper: #f2f0e9;
   --ink: #181816;
   --faint: #77746d;
-  --line: #c9c5ba;
 }
 
 * {
@@ -30,31 +29,15 @@ a {
 }
 
 .page {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
   width: min(100%, 96rem);
-  min-height: 100svh;
   margin: 0 auto;
   padding: clamp(1.25rem, 3vw, 2.75rem);
 }
 
-.masthead,
-footer {
+.masthead {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.masthead {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.name,
-.contact {
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.3em;
+  min-height: 2rem;
 }
 
 .name {
@@ -65,21 +48,17 @@ footer {
   text-transform: uppercase;
 }
 
-.site-mark,
-.domain {
-  color: var(--faint);
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-}
-
-main {
+.intro {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: clamp(4rem, 10vh, 7rem) 0;
+  min-height: calc(100svh - 7.5rem);
+  padding: clamp(5rem, 13vh, 9rem) 0;
 }
 
 h1 {
+  position: relative;
+  z-index: 1;
   max-width: 17ch;
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
@@ -95,26 +74,118 @@ h1 span {
   font-style: italic;
 }
 
-footer {
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
+.field-drawing {
+  position: absolute;
+  right: clamp(-7rem, -3vw, -2rem);
+  bottom: clamp(2rem, 8vh, 6rem);
+  width: clamp(15rem, 32vw, 29rem);
+  overflow: visible;
+  fill: none;
+  opacity: 0.38;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  stroke-width: 0.85;
+  transform: rotate(-8deg);
 }
 
-.contact {
+.field-drawing path:nth-child(2) {
+  stroke-dasharray: 1 4;
+  stroke-width: 1.4;
+}
+
+.field-drawing circle {
+  fill: var(--ink);
+  stroke: none;
+}
+
+.projects {
+  padding: clamp(7rem, 15vw, 14rem) 0 clamp(8rem, 16vw, 15rem);
+}
+
+.section-note {
+  margin: 0 0 1.25rem;
+  color: var(--faint);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+h2 {
+  max-width: 12ch;
+  margin: 0 0 clamp(4rem, 8vw, 7rem);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1rem;
-  text-decoration-line: underline;
-  text-decoration-color: var(--line);
-  transition: text-decoration-color 140ms ease;
+  font-size: clamp(2.9rem, 6vw, 6.25rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
 }
 
-.contact:hover {
-  text-decoration-color: var(--ink);
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
+  gap: clamp(5rem, 8vw, 8rem) clamp(3rem, 7vw, 7rem);
+}
+
+.project {
+  max-width: 42rem;
+}
+
+.project a {
+  display: block;
+  text-decoration: none;
+}
+
+.project-number {
+  display: inline-block;
+  margin-bottom: 2.25rem;
+  color: var(--faint);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  transition: transform 180ms ease;
+}
+
+.project h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 4.4vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.project p {
+  max-width: 35rem;
+  margin: 1.5rem 0 2.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 1.75vw, 1.55rem);
+  line-height: 1.4;
+}
+
+.project-url,
+.contact {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.38em;
+}
+
+.project:hover .project-number {
+  transform: translateX(0.35rem);
+}
+
+footer {
+  display: flex;
+  padding: 2rem 0 1rem;
 }
 
 a:focus-visible {
   outline: 1px solid var(--ink);
-  outline-offset: 0.35rem;
+  outline-offset: 0.45rem;
 }
 
 ::selection {
@@ -122,20 +193,32 @@ a:focus-visible {
   color: var(--paper);
 }
 
-@media (max-width: 36rem) {
-  .page {
-    padding: 1.25rem;
-  }
-
-  main {
+@media (max-width: 48rem) {
+  .intro {
     align-items: flex-start;
-    padding-top: 22vh;
+    min-height: 92svh;
+    padding-top: 20vh;
   }
 
   h1 {
     max-width: 13ch;
-    font-size: clamp(3rem, 15vw, 5rem);
+    font-size: clamp(3rem, 14.7vw, 5rem);
     line-height: 0.94;
+  }
+
+  .field-drawing {
+    right: -7rem;
+    bottom: 1.5rem;
+    width: 19rem;
+    opacity: 0.28;
+  }
+
+  .projects {
+    padding-top: 7rem;
+  }
+
+  h2 {
+    margin-bottom: 4.5rem;
   }
 }
 

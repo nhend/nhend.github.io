@@ -22,21 +22,45 @@
     <div class="page">
       <header class="masthead">
         <a class="name" href="/" aria-label="Nick Henderson, home">Nick Henderson</a>
-        <span class="site-mark" aria-hidden="true">N/H</span>
       </header>
 
       <main>
-        <h1>
-          <span>Hi, I&rsquo;m Nick.</span>
-          I make things. Some of them happen to be software.
-        </h1>
+        <section class="intro" aria-labelledby="intro-heading">
+          <h1 id="intro-heading">
+            <span>Hi, I&rsquo;m Nick.</span>
+            I make things. Some of them happen to be software.
+          </h1>
+
+          <svg class="field-drawing" viewBox="0 0 440 330" aria-hidden="true">
+            <path d="M28 161C71 70 165 33 265 52c99 19 163 94 144 156-19 62-117 96-221 69C85 251 2 215 28 161Z"/>
+            <path d="M71 164c31-66 106-96 186-80 80 17 130 70 116 116-15 47-91 70-172 50-80-20-151-46-130-86Z"/>
+            <path d="M122 166c20-40 70-57 124-45 54 11 88 43 80 71-9 28-59 42-114 29-54-13-104-31-90-55Z"/>
+            <circle cx="226" cy="174" r="7"/>
+          </svg>
+        </section>
+
+        <section class="projects" aria-labelledby="projects-heading">
+          <p class="section-note">One thing, for now.</p>
+          <h2 id="projects-heading">Things I&rsquo;m making</h2>
+
+          <div class="project-list">
+            <article class="project">
+              <a href="https://moviemag.net" aria-label="Visit Movie Magnet at moviemag.net">
+                <span class="project-number" aria-hidden="true">01</span>
+                <h3>Movie Magnet</h3>
+                <p>
+                  A Portland movie guide for finding what&rsquo;s playing,
+                  planning a night out, and keeping track of what you want to see.
+                </p>
+                <span class="project-url">moviemag.net</span>
+              </a>
+            </article>
+          </div>
+        </section>
       </main>
 
       <footer>
-        <a class="contact" href="mailto:nick@nihenderson.com">
-          Say hello<span aria-hidden="true">&thinsp;&nearr;</span>
-        </a>
-        <span class="domain">nhend.com</span>
+        <a class="contact" href="mailto:nick@nihenderson.com">Say hello</a>
       </footer>
     </div>
   </body>
