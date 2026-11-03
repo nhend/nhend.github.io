@@ -20,7 +20,7 @@ import {
   sunshineComparison,
   temperatureRangeComparison,
 } from "./context.js";
-import { livingContext } from "./api.js";
+import { livingContext } from "./api.js?v=2";
 
 const ZONE_BY_STATE = Object.fromEntries(
   Object.entries(ZONES).flatMap(([zoneId, zone]) => (
