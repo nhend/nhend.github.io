@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Choose a map group and get a random location." />
+    <title>Zone Drop</title>
+    <link rel="canonical" href="https://nhend.com/zone-drop/" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="map-wrap">
+        <div id="map" class="map" aria-label="Map of selectable groups"></div>
+        <div id="alaska-map" class="inset-map alaska-map" aria-label="Alaska"></div>
+        <div id="hawaii-map" class="inset-map hawaii-map" aria-label="Hawaii"></div>
+        <p id="map-message" class="map-message">Loading map…</p>
+      </div>
+
+      <section class="controls">
+        <p id="selected-group" class="selected-group" hidden></p>
+
+        <button id="drop-button" class="drop-button" type="button" disabled>
+          Drop me somewhere
+        </button>
+
+        <div class="settings">
+          <label>
+            <input type="checkbox" name="near-road" checked />
+            Within 5 miles of a drivable road
+          </label>
+          <label>
+            <input type="checkbox" name="avoid-water" checked />
+            Avoid bodies of water
+          </label>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+        <section id="result" class="result" aria-live="polite" hidden>
+          <p id="place-name" class="place-name"></p>
+          <p id="coordinates" class="coordinates"></p>
+          <p class="result-actions">
+            <button id="copy-button" class="text-button" type="button">Copy</button>
+            <a id="maps-link" href="#" target="_blank" rel="noreferrer">Open in Google Maps</a>
+          </p>
+          <section id="context" class="context" hidden>
+            <p id="context-status" class="context-status">Getting the lay of the land…</p>
+            <div id="context-scorecard" class="context-scorecard" hidden></div>
+            <div id="context-summary" class="context-summary" hidden></div>
+            <dl id="context-list" class="context-list"></dl>
+            <p id="context-sources" class="context-sources" hidden>
+              Comparisons are rough national benchmarks. Housing and density are county estimates; hazards are county ratings.
+              Data from
+              <a href="https://www.esri.com/" target="_blank" rel="noreferrer">Esri</a>,
+              <a href="https://www.census.gov/" target="_blank" rel="noreferrer">U.S. Census</a>,
+              <a href="https://hazards.fema.gov/nri/" target="_blank" rel="noreferrer">FEMA</a>,
+              <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>,
+              <a href="https://www.geonames.org/" target="_blank" rel="noreferrer">GeoNames</a>, and
+              <a href="https://ourairports.com/data/" target="_blank" rel="noreferrer">OurAirports</a>.
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

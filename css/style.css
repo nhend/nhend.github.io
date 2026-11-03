@@ -46,6 +46,7 @@ header {
 
 .name,
 .contact,
+.header-links a,
 .work-url {
   font-size: 0.78rem;
   font-weight: 700;
@@ -58,10 +59,16 @@ header {
 }
 
 .contact,
+.header-links a,
 .work-url {
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.38em;
+}
+
+.header-links {
+  display: flex;
+  gap: 1.25rem;
 }
 
 main {
