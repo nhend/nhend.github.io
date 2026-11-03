@@ -88,7 +88,7 @@ async function nearbyAmenities(latitude, longitude) {
 
 async function climateSummary(latitude, longitude) {
   const lastYear = new Date().getUTCFullYear() - 1;
-  const firstYear = lastYear - 9;
+  const firstYear = lastYear - 4;
   const url = new URL("https://archive-api.open-meteo.com/v1/archive");
   url.search = new URLSearchParams({
     latitude: `${latitude}`,
