@@ -15,17 +15,14 @@
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://nhend.com/">
-    <link rel="stylesheet" href="/css/style.css?v=6">
+    <link rel="stylesheet" href="/css/style.css?v=7">
   </head>
 
   <body>
     <div class="page">
       <header>
         <a class="name" href="/" aria-label="Nick Henderson, home">Nick Henderson</a>
-        <nav class="header-links" aria-label="Site links">
-          <a href="/zone-drop/">Zone Drop</a>
-          <a class="contact" href="mailto:nick@nihenderson.com">Say hello</a>
-        </nav>
+        <a class="contact" href="mailto:nick@nihenderson.com">Say hello</a>
       </header>
 
       <main>
@@ -39,7 +36,7 @@
             <span class="work-mark" aria-hidden="true">*</span>
             <div class="work-copy">
               <a class="work-title" id="movie-magnet-title" href="https://moviemag.net">Movie Magnet</a>
-              <p class="work-description" data-picker-intro>Portland tonight?</p>
+              <p class="work-description">Portland&rsquo;s indie movie showtimes, all in one place.</p>
 
               <div class="movie-result" data-movie-result hidden>
                 <a class="movie-title" data-movie-title href="https://moviemag.net"></a>
@@ -49,8 +46,28 @@
               <p class="movie-note" data-movie-note aria-live="polite"></p>
 
               <div class="work-actions">
-                <button class="movie-action" data-movie-action type="button">Pick a movie</button>
+                <button class="project-action" data-movie-action type="button">Get a random showtime</button>
                 <a class="work-url" href="https://moviemag.net">moviemag.net</a>
+              </div>
+            </div>
+          </section>
+
+          <section class="work work--drop" aria-labelledby="zone-drop-title">
+            <span class="work-mark" aria-hidden="true">*</span>
+            <div class="work-copy">
+              <a class="work-title" id="zone-drop-title" href="/zone-drop/">Zone Drop</a>
+              <p class="work-description">A needlessly thorough way to get dropped at a random spot in America.</p>
+
+              <div class="drop-result" data-drop-result hidden>
+                <a class="drop-location" data-drop-location href="/zone-drop/" target="_blank" rel="noreferrer"></a>
+                <p class="drop-coordinates" data-drop-coordinates></p>
+              </div>
+
+              <p class="drop-note" data-drop-note aria-live="polite"></p>
+
+              <div class="work-actions">
+                <button class="project-action" data-drop-action type="button">Drop me somewhere</button>
+                <a class="work-url" href="/zone-drop/">the whole thing</a>
               </div>
             </div>
           </section>
@@ -58,6 +75,6 @@
       </main>
     </div>
 
-    <script src="/js/site.js?v=6" defer></script>
+    <script type="module" src="/js/site.js?v=7"></script>
   </body>
 </html>

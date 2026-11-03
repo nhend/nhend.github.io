@@ -46,7 +46,6 @@ header {
 
 .name,
 .contact,
-.header-links a,
 .work-url {
   font-size: 0.78rem;
   font-weight: 700;
@@ -59,23 +58,17 @@ header {
 }
 
 .contact,
-.header-links a,
 .work-url {
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.38em;
 }
 
-.header-links {
-  display: flex;
-  gap: 1.25rem;
-}
-
 main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.42fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 1fr auto;
-  gap: clamp(2.5rem, 5vw, 6rem);
+  gap: clamp(2rem, 3vw, 4rem);
   min-height: 0;
   padding-top: clamp(3.5rem, 8vh, 7rem);
 }
@@ -119,10 +112,13 @@ h1 span {
 
 .workbench {
   display: grid;
-  grid-column: 2;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  grid-column: 1 / -1;
   grid-row: 2;
   align-self: end;
-  gap: 1.25rem;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  width: min(100%, 62rem);
+  margin-left: auto;
   padding: 0.6rem 0.45rem 0.45rem 0;
 }
 
@@ -130,7 +126,7 @@ h1 span {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
-  padding: 1.35rem 1.5rem 1.45rem 1.25rem;
+  padding: 1.15rem 1.5rem 1.2rem 1.25rem;
   background: var(--ink);
   box-shadow: 0.5rem 0.5rem 0 rgba(21, 21, 19, 0.14);
   color: var(--paper);
@@ -141,6 +137,20 @@ h1 span {
 .work:hover {
   box-shadow: 0.28rem 0.28rem 0 rgba(21, 21, 19, 0.2);
   transform: translate(0.22rem, 0.22rem) rotate(-0.2deg);
+}
+
+.work--drop {
+  align-self: end;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 0.5rem 0.5rem 0 var(--ink);
+  color: var(--ink);
+  transform: rotate(0.75deg);
+}
+
+.work--drop:hover {
+  box-shadow: 0.28rem 0.28rem 0 var(--ink);
+  transform: translate(0.22rem, 0.22rem) rotate(0.15deg);
 }
 
 body:has(.work:hover) .project-ref {
@@ -185,6 +195,10 @@ body:has(.work:hover) .project-ref {
   display: none;
 }
 
+.drop-result[hidden] {
+  display: none;
+}
+
 .movie-result {
   margin: 0 0 1.15rem;
 }
@@ -200,8 +214,24 @@ body:has(.work:hover) .project-ref {
   overflow-wrap: anywhere;
 }
 
+.drop-result {
+  margin: 0 0 1.15rem;
+}
+
+.drop-location {
+  display: inline;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
 .movie-meta,
-.movie-note {
+.movie-note,
+.drop-coordinates,
+.drop-note {
   font-size: 0.78rem;
   letter-spacing: 0.025em;
   line-height: 1.35;
@@ -211,10 +241,25 @@ body:has(.work:hover) .project-ref {
   margin: 0.55rem 0 0;
 }
 
-.movie-note {
+.drop-coordinates {
+  margin: 0.55rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.movie-note,
+.drop-note {
   min-height: 1.05em;
   margin: -0.35rem 0 0.85rem;
   color: rgba(238, 234, 224, 0.72);
+}
+
+.drop-note {
+  color: rgba(21, 21, 19, 0.62);
+}
+
+.movie-note:empty,
+.drop-note:empty {
+  display: none;
 }
 
 .work-actions {
@@ -224,7 +269,7 @@ body:has(.work:hover) .project-ref {
   gap: 0.75rem;
 }
 
-.movie-action {
+.project-action {
   appearance: none;
   padding: 0.58rem 0.72rem 0.52rem;
   border: 1px solid currentColor;
@@ -242,12 +287,17 @@ body:has(.work:hover) .project-ref {
   transition: background-color 130ms ease, color 130ms ease;
 }
 
-.movie-action:hover:not(:disabled) {
+.work:not(.work--drop) .project-action:hover:not(:disabled) {
   background: var(--paper);
   color: var(--ink);
 }
 
-.movie-action:disabled {
+.work--drop .project-action:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.project-action:disabled {
   cursor: default;
   opacity: 0.5;
 }
@@ -267,7 +317,7 @@ button:focus-visible {
   color: var(--paper);
 }
 
-@media (max-width: 52rem) {
+@media (max-width: 42rem) {
   .page {
     min-height: 100svh;
   }
@@ -288,6 +338,7 @@ button:focus-visible {
   }
 
   .workbench {
+    grid-template-columns: 1fr;
     grid-column: 1;
     grid-row: 2;
     width: min(100%, 30rem);
