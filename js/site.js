@@ -111,7 +111,7 @@ function showChoice(choice) {
   movieAction.textContent = "Get a random showtime";
   if (remainingMovies.length === 0) {
     movieAction.disabled = true;
-    movieNote.textContent = "That’s every indie movie left today.";
+    movieNote.textContent = "That’s every movie left at Portland’s independent theaters today.";
   } else {
     movieAction.disabled = false;
     movieNote.textContent = "";
@@ -141,7 +141,7 @@ movieAction?.addEventListener("click", async () => {
     moviesLoaded = true;
     if (remainingMovies.length === 0) {
       movieAction.textContent = "Nothing left today";
-      movieNote.textContent = "The indie theaters are done for the night.";
+      movieNote.textContent = "The independent theaters are done for the night.";
       return;
     }
     showNextMovie();
