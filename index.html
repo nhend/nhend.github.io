@@ -15,7 +15,7 @@
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://nhend.com/">
-    <link rel="stylesheet" href="/css/style.css?v=bf3841b">
+    <link rel="stylesheet" href="/css/style.css?v=6">
   </head>
 
   <body>
@@ -28,22 +28,33 @@
       <main>
         <h1>
           <span>Hi, I&rsquo;m Nick.</span>
-          I make things. Some of them happen to be software.<sup class="project-ref" aria-hidden="true">*</sup>
+          I make software for money and also not money.<sup class="project-ref" aria-hidden="true">*</sup>
         </h1>
 
-        <div class="workbench" aria-label="Current work">
-          <a class="work" href="https://moviemag.net">
+        <div class="workbench" aria-label="Projects">
+          <section class="work" aria-labelledby="movie-magnet-title">
             <span class="work-mark" aria-hidden="true">*</span>
-            <span class="work-copy">
-              <strong>Movie Magnet</strong>
-              <span class="work-description">
-                Portland showtimes in one place, plus a way to plan a night at the movies.
-              </span>
-              <span class="work-url">moviemag.net</span>
-            </span>
-          </a>
+            <div class="work-copy">
+              <a class="work-title" id="movie-magnet-title" href="https://moviemag.net">Movie Magnet</a>
+              <p class="work-description" data-picker-intro>Portland tonight?</p>
+
+              <div class="movie-result" data-movie-result hidden>
+                <a class="movie-title" data-movie-title href="https://moviemag.net"></a>
+                <p class="movie-meta" data-movie-meta></p>
+              </div>
+
+              <p class="movie-note" data-movie-note aria-live="polite"></p>
+
+              <div class="work-actions">
+                <button class="movie-action" data-movie-action type="button">Pick a movie</button>
+                <a class="work-url" href="https://moviemag.net">moviemag.net</a>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
+
+    <script src="/js/site.js?v=6" defer></script>
   </body>
 </html>
