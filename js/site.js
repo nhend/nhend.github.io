@@ -187,7 +187,7 @@ dropAction?.addEventListener("click", async () => {
     dropLocation.href = mapsUrl;
     dropCoordinates.textContent = coordinateText;
     dropResult.hidden = false;
-    dropAction.textContent = "Drop me somewhere else";
+    dropAction.textContent = "Drop me somewhere";
     dropAction.disabled = false;
   } catch {
     dropAction.textContent = "Couldn’t drop you";
