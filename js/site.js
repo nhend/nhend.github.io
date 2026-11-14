@@ -15,6 +15,7 @@ const movieNote = document.querySelector("[data-movie-note]");
 const dropAction = document.querySelector("[data-drop-action]");
 const dropResult = document.querySelector("[data-drop-result]");
 const dropLocation = document.querySelector("[data-drop-location]");
+const dropLocationName = document.querySelector("[data-drop-location-name]");
 const dropCoordinates = document.querySelector("[data-drop-coordinates]");
 const dropNote = document.querySelector("[data-drop-note]");
 
@@ -55,6 +56,16 @@ function displayTime(isoTime) {
   const period = hours >= 12 ? "pm" : "am";
   const hour = hours % 12 || 12;
   return `${hour}:${String(minutes).padStart(2, "0")} ${period}`;
+}
+
+function displayDay(isoTime) {
+  const date = isoTime.slice(0, 10);
+  if (date === portlandDate()) return "Today";
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(`${date}T12:00:00Z`));
 }
 
 function movieChoices(payload) {
@@ -105,7 +116,7 @@ function showChoice(choice) {
   const { movie, showtime } = choice;
   movieTitle.textContent = movie.title;
   movieTitle.href = `https://moviemag.net/movies/${movie.id}?showtime=${showtime.id}`;
-  movieMeta.textContent = `${showtime.theaterName} · ${displayTime(showtime.time)}`;
+  movieMeta.textContent = `${showtime.theaterName} · ${displayDay(showtime.time)} · ${displayTime(showtime.time)}`;
   movieResult.hidden = false;
 
   movieAction.textContent = "Get a random showtime";
@@ -183,7 +194,7 @@ dropAction?.addEventListener("click", async () => {
     mapsUrl.searchParams.set("api", "1");
     mapsUrl.searchParams.set("query", `${latitude.toFixed(6)},${longitude.toFixed(6)}`);
 
-    dropLocation.textContent = locationName;
+    dropLocationName.textContent = locationName;
     dropLocation.href = mapsUrl;
     dropCoordinates.textContent = coordinateText;
     dropResult.hidden = false;
