@@ -68,10 +68,10 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto;
-  align-content: center;
+  align-content: start;
   gap: clamp(2.75rem, 6vh, 5rem);
   min-height: 0;
-  padding-top: clamp(2.5rem, 6vh, 5rem);
+  padding-top: clamp(2.5rem, calc(22vh - 4.5rem), 8rem);
 }
 
 h1 {
@@ -133,12 +133,12 @@ h1 span {
   box-shadow: 0.5rem 0.5rem 0 rgba(21, 21, 19, 0.14);
   color: var(--paper);
   transform: rotate(-0.8deg);
-  transition: box-shadow 160ms ease, transform 160ms ease;
+  transform-origin: top left;
+  transition: box-shadow 160ms ease;
 }
 
 .work:hover {
   box-shadow: 0.28rem 0.28rem 0 rgba(21, 21, 19, 0.2);
-  transform: translate(0.22rem, 0.22rem) rotate(-0.2deg);
 }
 
 .work--drop {
@@ -151,7 +151,6 @@ h1 span {
 
 .work--drop:hover {
   box-shadow: 0.28rem 0.28rem 0 var(--ink);
-  transform: translate(0.22rem, 0.22rem) rotate(0.15deg);
 }
 
 body:has(.work:hover) .project-ref {
@@ -219,7 +218,7 @@ body:has(.work:hover) .project-ref {
 
 .movie-result,
 .drop-result {
-  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .movie-title {
@@ -263,8 +262,7 @@ body:has(.work:hover) .project-ref {
 
 .movie-note,
 .drop-note {
-  min-height: 1.05em;
-  margin: -0.35rem 0 0.85rem;
+  margin: 0.65rem 0 0;
   color: rgba(238, 234, 224, 0.72);
 }
 

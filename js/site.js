@@ -121,18 +121,18 @@ function revealResult(result, update) {
 
   if (reducedMotion.matches) return;
 
-  const paddingBottom = getComputedStyle(result).paddingBottom;
+  const paddingTop = getComputedStyle(result).paddingTop;
   result.animate([
     {
       height: `${previousHeight}px`,
-      paddingBottom: previousHeight === 0 ? "0px" : paddingBottom,
+      paddingTop: previousHeight === 0 ? "0px" : paddingTop,
       opacity: 0,
       translate: "0 4px",
       overflow: "clip",
     },
     {
       height: `${result.offsetHeight}px`,
-      paddingBottom,
+      paddingTop,
       opacity: 1,
       translate: "0 0",
       overflow: "clip",
@@ -148,7 +148,6 @@ function showChoice(choice) {
     movieMeta.textContent = `${showtime.theaterName} · ${displayDay(showtime.time)} · ${displayTime(showtime.time)}`;
   });
 
-  movieAction.textContent = "Get a random showtime";
   if (remainingMovies.length === 0) {
     movieAction.disabled = true;
     movieNote.textContent = "That’s every movie left at Portland’s independent theaters today.";
@@ -173,20 +172,17 @@ movieAction?.addEventListener("click", async () => {
   }
 
   movieAction.disabled = true;
-  movieAction.textContent = "Looking…";
   movieNote.textContent = "Checking Portland’s marquees.";
 
   try {
     remainingMovies = movieChoices(await loadMovies());
     moviesLoaded = true;
     if (remainingMovies.length === 0) {
-      movieAction.textContent = "Nothing left today";
       movieNote.textContent = "The independent theaters are done for the night.";
       return;
     }
     showNextMovie();
   } catch {
-    movieAction.textContent = "Unavailable tonight";
     movieNote.textContent = "Couldn’t check the marquees just now.";
     movieAction.disabled = true;
   }
@@ -207,7 +203,6 @@ function loadUSFeatures() {
 
 dropAction?.addEventListener("click", async () => {
   dropAction.disabled = true;
-  dropAction.textContent = "Dropping…";
   dropNote.textContent = "";
 
   try {
@@ -228,10 +223,8 @@ dropAction?.addEventListener("click", async () => {
       dropLocation.href = mapsUrl;
       dropCoordinates.textContent = coordinateText;
     });
-    dropAction.textContent = "Drop me somewhere";
     dropAction.disabled = false;
   } catch {
-    dropAction.textContent = "Couldn’t drop you";
     dropNote.textContent = "The map is having a little trouble.";
   }
 });
