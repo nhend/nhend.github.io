@@ -114,6 +114,7 @@ h1 span {
 .workbench {
   display: grid;
   grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  align-items: start;
   grid-column: 1 / -1;
   grid-row: 2;
   align-self: end;
@@ -141,7 +142,6 @@ h1 span {
 }
 
 .work--drop {
-  align-self: end;
   border: 1px solid var(--ink);
   background: var(--paper);
   box-shadow: 0.5rem 0.5rem 0 var(--ink);
@@ -169,6 +169,7 @@ body:has(.work:hover) .project-ref {
 .work-copy {
   display: flex;
   flex-direction: column;
+  container-type: inline-size;
   min-width: 0;
 }
 
@@ -186,15 +187,11 @@ body:has(.work:hover) .project-ref {
 
 .work-description {
   max-width: 28rem;
-  margin: 0 0 1.45rem;
+  margin: 0 0 1rem;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.12rem;
   font-style: italic;
   line-height: 1.3;
-}
-
-.project-mini {
-  margin-top: auto;
 }
 
 .work-actions {
@@ -220,8 +217,9 @@ body:has(.work:hover) .project-ref {
   display: none;
 }
 
-.movie-result {
-  margin: 0 0 1.15rem;
+.movie-result,
+.drop-result {
+  padding-bottom: 1rem;
 }
 
 .movie-title {
@@ -233,10 +231,6 @@ body:has(.work:hover) .project-ref {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.14em;
   overflow-wrap: anywhere;
-}
-
-.drop-result {
-  margin: 0 0 1.15rem;
 }
 
 .drop-location {
@@ -318,10 +312,36 @@ body:has(.work:hover) .project-ref {
   opacity: 0.5;
 }
 
+[data-drop-action] {
+  white-space: nowrap;
+}
+
 .work-url {
   flex: 0 0 auto;
   white-space: nowrap;
   padding-block: 0.4rem;
+}
+
+@container (max-width: 18rem) {
+  .work-actions {
+    gap: 0.5rem;
+  }
+
+  .project-action,
+  .work-url {
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+  }
+
+  .project-action {
+    padding-inline: 0.5rem;
+  }
+}
+
+@container (max-width: 15rem) {
+  .work-actions {
+    margin-inline-start: -2.25rem;
+  }
 }
 
 a:focus-visible,
@@ -384,7 +404,6 @@ button:focus-visible {
   .work {
     padding: 1.15rem 1.2rem 1.25rem 1rem;
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {

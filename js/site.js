@@ -6,6 +6,7 @@ import {
 
 const SHOWTIMES_URL = "https://moviemag.net/api/showtimes";
 const EXCLUDED_THEATERS = /\b(regal|cinemark)\b/i;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const movieAction = document.querySelector("[data-movie-action]");
 const movieResult = document.querySelector("[data-movie-result]");
@@ -112,12 +113,40 @@ function loadMovies() {
   return movieRequest;
 }
 
+function revealResult(result, update) {
+  const previousHeight = result.offsetHeight;
+  for (const animation of result.getAnimations()) animation.cancel();
+  update();
+  result.hidden = false;
+
+  if (reducedMotion.matches) return;
+
+  const paddingBottom = getComputedStyle(result).paddingBottom;
+  result.animate([
+    {
+      height: `${previousHeight}px`,
+      paddingBottom: previousHeight === 0 ? "0px" : paddingBottom,
+      opacity: 0,
+      translate: "0 4px",
+      overflow: "clip",
+    },
+    {
+      height: `${result.offsetHeight}px`,
+      paddingBottom,
+      opacity: 1,
+      translate: "0 0",
+      overflow: "clip",
+    },
+  ], { duration: 240, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" });
+}
+
 function showChoice(choice) {
   const { movie, showtime } = choice;
-  movieTitle.textContent = movie.title;
-  movieTitle.href = `https://moviemag.net/movies/${movie.id}?showtime=${showtime.id}`;
-  movieMeta.textContent = `${showtime.theaterName} · ${displayDay(showtime.time)} · ${displayTime(showtime.time)}`;
-  movieResult.hidden = false;
+  revealResult(movieResult, () => {
+    movieTitle.textContent = movie.title;
+    movieTitle.href = `https://moviemag.net/movies/${movie.id}?showtime=${showtime.id}`;
+    movieMeta.textContent = `${showtime.theaterName} · ${displayDay(showtime.time)} · ${displayTime(showtime.time)}`;
+  });
 
   movieAction.textContent = "Get a random showtime";
   if (remainingMovies.length === 0) {
@@ -194,10 +223,11 @@ dropAction?.addEventListener("click", async () => {
     mapsUrl.searchParams.set("api", "1");
     mapsUrl.searchParams.set("query", `${latitude.toFixed(6)},${longitude.toFixed(6)}`);
 
-    dropLocationName.textContent = locationName;
-    dropLocation.href = mapsUrl;
-    dropCoordinates.textContent = coordinateText;
-    dropResult.hidden = false;
+    revealResult(dropResult, () => {
+      dropLocationName.textContent = locationName;
+      dropLocation.href = mapsUrl;
+      dropCoordinates.textContent = coordinateText;
+    });
     dropAction.textContent = "Drop me somewhere";
     dropAction.disabled = false;
   } catch {
