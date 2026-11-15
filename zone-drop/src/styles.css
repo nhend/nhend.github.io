@@ -31,6 +31,18 @@ main {
   padding: 10px;
 }
 
+.prompt {
+  max-width: 720px;
+  margin: 2px 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.prompt span {
+  font-style: italic;
+}
+
 .map-wrap {
   position: relative;
 }
@@ -331,6 +343,11 @@ input:focus-visible {
 @media (max-width: 620px) {
   main {
     padding: 0;
+  }
+
+  .prompt {
+    margin: 0;
+    padding: 8px 10px 10px;
   }
 
   .map {
